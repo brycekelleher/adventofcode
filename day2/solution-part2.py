@@ -29,6 +29,10 @@ def smallest_perimeter(l, w, h):
 
 	return min3(lw, wh, hl)
 
+#even simpler is to just subtract the largest value as the permeter is just an addition of the two smallest values
+def smallest_perimeter2(l, w, h):
+	return (2 * l) + (2 * w) + (2 * h) - 2 * (max(l, max(w, h)))
+
 f = sys.stdin
 total = 0
 for line in f:
