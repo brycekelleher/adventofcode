@@ -4,14 +4,12 @@ state = {}
 
 #function map
 func = dict(zip(['1', '0', 't'], [lambda x: True, lambda x: False, lambda x: not x]))
-#def execute(i):
-#	state[(x, y)] = func[i[0]](state[(x, y)])
+
+def coord(x, y):
+	return (int(x), int(y))
 
 def rect_test(xy, xy0, xy1):
-	return (int(xy0[0]) <= xy[0] <= int(xy1[0])) and (int(xy0[1]) <= xy[1] <= int(xy1[1]))
-
-def execute_instruction(xy, i):
-	func
+	return (xy0[0] <= xy[0] <= xy1[0]) and (xy0[1] <= xy[1] <= xy1[1])
 
 def execute(xy, p):
 	for i in p:
@@ -25,14 +23,14 @@ p = []
 for l in f:
 	s =  l.replace(","," ").split()
 	if 'on' in l:
-		p.append( ('1', ( s[2], s[3] ), ( s[5], s[6] ) ) )
+		p.append( ('1', coord( s[2], s[3] ), coord( s[5], s[6] ) ) )
 	if 'off' in l:
-		p.append( ('0', ( s[2], s[3] ), ( s[5], s[6] ) ) )
+		p.append( ('0', coord( s[2], s[3] ), coord( s[5], s[6] ) ) )
 	if 'toggle' in l: 
-		p.append( ('t', ( s[1], s[2] ), ( s[4], s[5] ) ) )
+		p.append( ('t', coord( s[1], s[2] ), coord( s[4], s[5] ) ) )
 
-for x in range(500, 750):
-	for y in range(500, 750):
+for x in range(1000):
+	for y in range(1000):
 		state[(x, y)] = False
 		execute((x, y), p)
 count = 0
