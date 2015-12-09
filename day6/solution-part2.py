@@ -3,7 +3,7 @@ import sys
 state = {}
 
 #function map
-func = dict(zip(['1', '0', 't'], [lambda x: True, lambda x: False, lambda x: not x]))
+func = dict(zip(['1', '0', 't'], [lambda x: x + 1, lambda x: max(0, x - 1), lambda x: x + 2]))
 
 def coord(x, y):
 	return (int(x), int(y))
@@ -31,12 +31,10 @@ for l in f:
 
 for x in range(1000):
 	for y in range(1000):
-		state[(x, y)] = False
+		state[(x, y)] = 0
 		execute((x, y), p)
 count = 0
 for l in state.keys():
-	if state[l] is True:
-		count += 1
+	count += state[l]
 
-print state
 print count
