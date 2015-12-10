@@ -2,7 +2,7 @@ import sys
 import itertools
 
 dists = {}
-places = []
+places = set()
 
 f = sys.stdin
 for l in f:
@@ -10,18 +10,15 @@ for l in f:
 	s, d, c = l[0], l[2], l[4]
 	dists[(s, d)] = int(c)
 	dists[(d, s)] = int(c)
-	if s not in places:
-		places.append(s)
-	if d not in places:
-		places.append(d)
+	places.add(s)
+	places.add(d)
 
 def valid(l):
-	return all( [(l[x], l[x+1]) in dists for x in range(len(l) - 1)] )
+	return all([x in dists for x in zip(l[0:], l[1:])])
 
 def distance(l):
-	return sum([dists[(l[i], l[i+1])] for i in range(len(l) - 1)])
+	return sum([dists[x] for x in zip(l[0:], l[1:])])
 
-for i in itertools.permutations(range(len(places))):
-	i = [places[x] for x in i]
+for i in itertools.permutations(places):
 	if valid(i):
 		print distance(i), i 
